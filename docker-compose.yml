@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+    dbapp:
+        image: mysql:5
+        restart: always
+        volumes:
+            - /home/server/databases/moodle:/var/lib/mysql
+        env_file:
+            - moodle_variables.env
+        networks:
+            - backendDB
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+
+#    mysql-backup:
+#        image: dsteinkopf/backup-all-mysql:latest
+#        environment:
+#            - BACKUP_INTERVAL=60
+#            - BACKUP_FIRSTDELAY=60
+#            - MYSQL_HOST=moodle
+#        links:
+#            - dbapp:DB
+#        restart: always
+#        volumes:
+#            - /home/server/databases/moodle/mysql-backup:/var/dbdumps
+#            - /etc/localtime:/etc/localtime
+#            - /etc/timezone:/etc/timezone
+
+    moodleapp:
+        image: jhardison/moodle:latest
+        links:
+            - dbapp:DB
+        depends_on: 
+            - dbapp
+        restart: always
+        volumes:
+            - /home/server/projetos/moodle/moodleapp-data:/var/moodledata
+        ports:
+            - 2020:80
+            - 443:443
+        env_file:
+            - moodle_variables.env
+        networks:
+            - backendDB
+            - frontendWEB
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any            
+
+volumes: 
+    moodleapp-data:
+
+networks:
+    backendDB:
+    frontendWEB:
