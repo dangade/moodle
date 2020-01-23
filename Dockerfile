@@ -1,27 +1,23 @@
 # Docker-Moodle
-# Dockerfile for moodle instance. more dockerish version of https://github.com/sergiogomez/docker-moodle
-# Forked from Jade Auer's docker version. https://github.com/jda/docker-moodle
-#FROM ubuntu:19.04
 FROM ubuntu:latest
-#FROM alpine:latest
-#LABEL maintainer="Jonathan Hardison <jmh@jonathanhardison.com>"
+LABEL maintainer="Daniel Gadê <dcgvdeveloper@gmail.com>"
 
 VOLUME ["/var/moodledata"]
 EXPOSE 2020 443
-COPY moodle-config.php /var/www/html/config.php
 
 # Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
 # Database info and other connection information derrived from env variables. See readme.
 # Set ENV Variables externally Moodle_URL should be overridden.
-ENV MOODLE_URL http://127.0.0.1
+ENV MOODLE_URL http://10.108.1.136:2020
 
 # Enable when using external SSL reverse proxy
 # Default: false
 ENV SSL_PROXY false
 
 COPY ./foreground.sh /etc/apache2/foreground.sh
+#COPY ./moodle/* /var/www/html/
 
 RUN apt-get update && \
 	apt-get -y install mysql-client pwgen python-setuptools curl git unzip apache2 php \
@@ -37,6 +33,8 @@ RUN apt-get update && \
 #cron
 COPY moodlecron /etc/cron.d/moodlecron
 RUN chmod 0644 /etc/cron.d/moodlecron
+
+COPY config.php /var/www/html/config.php
 
 # Enable SSL, moodle requires it
 RUN a2enmod ssl && a2ensite default-ssl  #if using proxy dont need actually secure connection
