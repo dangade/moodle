@@ -17,8 +17,7 @@ services:
                 condition: any
     moodleapp:
         container_name: moodleapp
-        #image: jhardison/moodle:latest
-        build: .
+        image:  dangade/moodle:latest
         links:
             - dbapp:DB
         depends_on: 
