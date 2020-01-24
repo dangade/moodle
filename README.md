@@ -1,6 +1,6 @@
 docker-moodle
 =============
-[![Build Status][![](https://images.microbadger.com/badges/version/dangade/moodle.svg)](https://microbadger.com/images/dangade/moodle "Get your own version badge on microbadger.com")[![][![](https://images.microbadger.com/badges/version/dangade/moodle.svg)](https://microbadger.com/images/dangade/moodle "Get your own version badge on microbadger.com")
+[![Build Status][![](https://images.microbadger.com/badges/image/dangade/moodle.svg)](https://microbadger.com/images/dangade/moodle "Get your own image badge on microbadger.com")(https://images.microbadger.com/badges/version/dangade/moodle.svg)](https://microbadger.com/images/dangade/moodle "Get your own version badge on microbadger.com")
 
 A Dockerfile that installs and runs the latest Moodle 3.8 stable, with external MySQL Database.
 
