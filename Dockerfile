@@ -10,7 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Database info and other connection information derrived from env variables. See readme.
 # Set ENV Variables externally Moodle_URL should be overridden.
-ENV MOODLE_URL http://10.108.1.136:2020 #<--replace with host address
+# Replace with host address
+ENV MOODLE_URL http://10.108.1.136:2020 
 
 # Enable when using external SSL reverse proxy
 # Default: false
