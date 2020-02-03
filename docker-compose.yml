@@ -17,7 +17,7 @@ services:
                 condition: any
     moodleapp:
         container_name: moodleapp
-        image:  dangade/moodle:latest
+        build: .
         links:
             - dbapp:DB
         depends_on: 
@@ -26,6 +26,8 @@ services:
         volumes:
             - ./moodleapp-data:/var/moodledata
             - ./moodle:/var/www/html
+            #- ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+            - ./php.ini:/etc/php/7.2/apache2/php.ini
         ports:
             - 2020:80
             - 443:443
